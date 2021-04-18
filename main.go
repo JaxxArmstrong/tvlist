@@ -14,7 +14,6 @@ import (
 	"sort"
 	"strings"
 	"time"
-	"strconv"
 
 	"github.com/Guitarbum722/align"
 	"github.com/denisbrodbeck/striphtmltags"
@@ -264,8 +263,8 @@ func gatherPrevEpNum(url string) string {
 		log.Fatal(jsonErr3)
 	}
 
-	prevseason := strconv.FormatInt(int64(mytvmaze3.Season), 10)
-	prevnumber := strconv.FormatInt(int64(mytvmaze3.Number), 10)
+        prevseason := fmt.Sprintf("%02d", mytvmaze3.Season)
+	prevnumber := fmt.Sprintf("%02d", mytvmaze3.Number)
 
 	prevepnum = "s" + prevseason + "e" + prevnumber
 
