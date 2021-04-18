@@ -272,9 +272,10 @@ func gatherPrevEpNum(url string) string {
 	return prevepnum
 }
 
-func gatherInfo(url string) (string, string) {
+func gatherInfo(url string) (string, string, string) {
 	nextep := ""
 	prevep := ""
+	prevepnum := ""
 
 	getTVshows(url)
 
@@ -286,17 +287,19 @@ func gatherInfo(url string) (string, string) {
 
 	if mytvmaze1.Links.Previousepisode.Href != "" {
 		prevep = getTVshowsAirdate(mytvmaze1.Links.Previousepisode.Href)
+		url = mytvmaze1.Links.Previousepisode.Href
+		prevepnum = " ("+gatherPrevEpNum(url)+")"
 	} else {
 		prevep = "N/A"
 	}
 
-	return nextep, prevep
+	return nextep, prevep, prevepnum
 }
 
 func main() {
 	fmt.Println()
 
-	usage := `tvlist v0.7.0b
+	usage := `tvlist v0.7.1
 
 Usage:
 	tvlist search (<name>)
@@ -369,12 +372,9 @@ Options:
 				s := strings.Split(myString, " ")[0]
 				url = "http://api.tvmaze.com/shows/" + s
 
-				nextep, prevep = gatherInfo(url)
+				nextep, prevep, prevepnum = gatherInfo(url)
 
-				url = mytvmaze1.Links.Previousepisode.Href
-				prevepnum = gatherPrevEpNum(url)
-
-				lines = append(lines, nextep+"|"+prevep+" ("+prevepnum+")|"+mytvmaze1.Name+"|"+mytvmaze1.Status)
+				lines = append(lines, nextep+"|"+prevep+prevepnum+"|"+mytvmaze1.Name+"|"+mytvmaze1.Status)
 			}
 
 			defer file.Close()
@@ -389,10 +389,7 @@ Options:
 
 				url = "http://api.tvmaze.com/shows/" + s[i]
 
-				nextep, prevep = gatherInfo(url)
-
-	                        url = mytvmaze1.Links.Previousepisode.Href
-                                prevepnum = gatherPrevEpNum(url)
+				nextep, prevep, prevepnum = gatherInfo(url)
 
                                 lines = append(lines, nextep+"|"+prevep+" ("+prevepnum+")|"+mytvmaze1.Name+"|"+mytvmaze1.Status)
 			}
@@ -406,7 +403,7 @@ Options:
 	if searchCMD {
 		url = "http://api.tvmaze.com/singlesearch/shows?q=" + searchArgs
 
-		nextep, prevep = gatherInfo(url)
+		nextep, prevep, prevepnum = gatherInfo(url)
 
 		// fmt.Println()
 		fmt.Println("ID:", mytvmaze1.ID)
