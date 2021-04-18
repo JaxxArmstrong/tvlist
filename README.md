@@ -1,7 +1,7 @@
 # tvlist
 Lists current state of TV shows from either a predefined list (textfile), TV shows defined at the command line or search for a specific TV show. All modes leverages the TV Maze API.
 
-UPDATE (2019-11-07):  Recompiled the *Linux* binary (go version go1.13.3 linux/amd64) just to make sure it still works as advertised including checking the TV Maze API functionality overall.
+UPDATE (2021-04-18):  Fixed the project to match the new modular Go structure, added season/number to the previous episode output to make it easier to track what shows you have seen or not and recompiled the Linux binary.
 
 ![](images/tvlist1.png?raw=true)
 ![](images/tvlist2.png?raw=true)
