@@ -1,0 +1,11 @@
+github.com/Guitarbum722/align v1.1.2 h1:/QGFRztaoIhzUzFle0IZ6dedC9rTUOOAGPPAaDgP7AE=
+github.com/Guitarbum722/align v1.1.2/go.mod h1:XkRCDtpTGB6raNiN7uMeTHBY+iCi5GVMHXe8lkZ/iXI=
+github.com/denisbrodbeck/striphtmltags v6.6.6+incompatible h1:w4i4bsyWhAAqwUd9D/1NBi98citfaqCOI/8K3ZCh7KY=
+github.com/denisbrodbeck/striphtmltags v6.6.6+incompatible/go.mod h1:wex3txg8OlzJKhtozM75/Ucy+jKUq73hqzl7XAcNeOY=
+github.com/docopt/docopt-go v0.0.0-20180111231733-ee0de3bc6815 h1:bWDMxwH3px2JBh6AyO7hdCn/PkvCZXii8TGj7sbtEbQ=
+github.com/docopt/docopt-go v0.0.0-20180111231733-ee0de3bc6815/go.mod h1:WwZ+bS3ebgob9U8Nd0kOddGdZWjyMGR8Wziv+TBNwSE=
+github.com/mattn/go-runewidth v0.0.12 h1:Y41i/hVW3Pgwr8gV+J23B9YEY0zxjptBuCWEaxmAOow=
+github.com/mattn/go-runewidth v0.0.12/go.mod h1:RAqKPSqVFrSLVXbA8x7dzmKdmGzieGRCM46jaSJTDAk=
+github.com/rivo/uniseg v0.1.0/go.mod h1:J6wj4VEh+S6ZtnVlnTBMWIodfgj8LQOQFoIToxlJtxc=
+github.com/rivo/uniseg v0.2.0 h1:S1pD9weZBuJdFmowNwbpi7BJ8TNftyUImj/0WQi72jY=
+github.com/rivo/uniseg v0.2.0/go.mod h1:J6wj4VEh+S6ZtnVlnTBMWIodfgj8LQOQFoIToxlJtxc=
