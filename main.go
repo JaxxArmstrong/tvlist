@@ -32,7 +32,6 @@ var url string
 var list string
 var mytvmaze1 = MyTVmaze{}
 var mytvmaze2 = MyTVmazeDates{}
-var mytvmaze3 = MyTVmazeEpisodes{}
 
 var myFile = []string{"~/Documents/tvshows", "~/.tvshows", "~/tvshows"}
 
@@ -104,29 +103,6 @@ type MyTVmazeDates struct {
 		Original string `json:"original"`
 	} `json:"image"`
 	Summary interface{} `json:"summary"`
-	Links   struct {
-		Self struct {
-			Href string `json:"href"`
-		} `json:"self"`
-	} `json:"_links"`
-}
-
-type MyTVmazeEpisodes struct {
-	ID       int       `json:"id"`
-	URL      string    `json:"url"`
-	Name     string    `json:"name"`
-	Season   int       `json:"season"`
-	Number   int       `json:"number"`
-	Type     string    `json:"type"`
-	Airdate  string    `json:"airdate"`
-	Airtime  string    `json:"airtime"`
-	Airstamp time.Time `json:"airstamp"`
-	Runtime  int       `json:"runtime"`
-	Image    struct {
-		Medium   string `json:"medium"`
-		Original string `json:"original"`
-	} `json:"image"`
-	Summary string `json:"summary"`
 	Links   struct {
 		Self struct {
 			Href string `json:"href"`
@@ -231,46 +207,6 @@ func getTVshowsAirdate(url string) string {
 	return mytvmaze2.Airdate
 }
 
-func gatherPrevEpNum(url string) string {
-
-	prevepnum := ""
-
-	tvmazeClient3 := http.Client{
-		Timeout: time.Second * 3, // Maximum of 3 secs
-	}
-
-	req3, err := http.NewRequest(http.MethodGet, url, nil)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	req3.Header.Set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:66.0) Gecko/20100101 Firefox/66.0")
-
-	res3, getErr := tvmazeClient3.Do(req3)
-	if getErr != nil {
-		log.Fatal(getErr)
-	}
-
-	body3, readErr := ioutil.ReadAll(res3.Body)
-	if readErr != nil {
-		log.Fatal(readErr)
-	}
-
-	mytvmaze3 = MyTVmazeEpisodes{}
-
-	jsonErr3 := json.Unmarshal(body3, &mytvmaze3)
-	if jsonErr3 != nil {
-		log.Fatal(jsonErr3)
-	}
-
-        prevseason := fmt.Sprintf("%02d", mytvmaze3.Season)
-	prevnumber := fmt.Sprintf("%02d", mytvmaze3.Number)
-
-	prevepnum = "s" + prevseason + "e" + prevnumber
-
-	return prevepnum
-}
-
 func gatherInfo(url string) (string, string, string) {
 	nextep := ""
 	prevep := ""
@@ -286,8 +222,10 @@ func gatherInfo(url string) (string, string, string) {
 
 	if mytvmaze1.Links.Previousepisode.Href != "" {
 		prevep = getTVshowsAirdate(mytvmaze1.Links.Previousepisode.Href)
-		url = mytvmaze1.Links.Previousepisode.Href
-		prevepnum = " ("+gatherPrevEpNum(url)+")"
+
+	        prevseason := fmt.Sprintf("%02d", mytvmaze2.Season)
+		prevnumber := fmt.Sprintf("%02d", mytvmaze2.Number)
+		prevepnum = " ("+"s"+prevseason+"e"+prevnumber+")"
 	} else {
 		prevep = "N/A"
 	}
